@@ -4,7 +4,8 @@
   "description": "This is the server component of Authentic. This provides endpoints for signup, login, confirm, and password change.",
   "main": "index.js",
   "scripts": {
-    "test": "node test/index.js && standard"
+    "test": "node test/index.js && standard",
+    "launch": "node micro-auth/index.js"
   },
   "keywords": [
     "authentic",
@@ -19,7 +20,8 @@
     "http-hash-router": "^1.1.0",
     "ix-level-userdb": "^1.0.1",
     "jsonwebtoken": "^5.4.1",
-    "level": "^1.3.0"
+    "level": "^1.3.0",
+    "nodemailer": "^4.0.1"
   },
   "devDependencies": {
     "bl": "^1.0.0",
