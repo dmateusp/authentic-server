@@ -2,6 +2,10 @@
 
 This is the server component of [authentic](https://github.com/davidguttman/authentic). This provides endpoints for signup, login, confirm, and password change.
 
+## Micro-Auth ##
+
+Micro-Auth is my configuration of AuthenticServer, can be launched using `node micro-auth/index.js`
+
 ## Example ##
 
 ```js
