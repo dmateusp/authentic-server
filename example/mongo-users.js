@@ -16,11 +16,10 @@ const connect = (callback) => {
 }
 const findOne =
   (key, cb) => {
+    console.log(key)
     return((collection) =>
       collection.findOne({email: key}, function(err, item) {
-        console.log(err)
-        const user = item ? item : undefined
-        setImmediate(cb, null, user)
+        cb(item)
       }))
   }
 
@@ -31,7 +30,7 @@ const insertOne =
       (collection) => {
         const newUser = utils.merge([{'email': key}, value])
         collection.insertOne(newUser, function(err, r) {
-          setImmediate(cb, null)
+          cb(newUser)
         })
       }
     )

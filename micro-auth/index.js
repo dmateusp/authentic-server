@@ -2,9 +2,10 @@ var fs = require('fs')
 var http = require('http')
 var Authentic = require('../')
 const email = require('./send-email-nodemailer.js')
+const mongo = require('./mongo-users.js')
 
 var auth = Authentic({
-  db: __dirname + '/../db/',
+  db: mongo.MongoQuery,
   publicKey: fs.readFileSync(__dirname + '/rsa-public.pem'),
   privateKey: fs.readFileSync(__dirname + '/rsa-private.pem'),
   sendEmail: email.sendEmail

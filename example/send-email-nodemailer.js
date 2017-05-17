@@ -41,13 +41,12 @@ const message_template = () => {
 };
 
 const sendEmail = (message) => {
-  msg_base = message_template()
+  let msg_base = message_template()
   msg_base.to = message.email
   msg_base.text += message.confirmUrl
   msg_base.html += '<a href="' + message.confirmUrl + '">Confirm your email!</a>'
 
-  transporter.sendEmail(msg_base, (error, info) => {
-      console.log(msg_base)
+  transporter.sendMail(msg_base, (error, info) => {
 
       if (error) {
           console.log('Error occurred');
