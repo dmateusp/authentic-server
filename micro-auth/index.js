@@ -7,7 +7,7 @@ var auth = Authentic({
   db: __dirname + '/../db/',
   publicKey: fs.readFileSync(__dirname + '/rsa-public.pem'),
   privateKey: fs.readFileSync(__dirname + '/rsa-private.pem'),
-  sendEmail: email.sendMail
+  sendEmail: email.sendEmail
 })
 
 var server = http.createServer(function (req, res) {

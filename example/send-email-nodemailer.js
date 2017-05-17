@@ -6,53 +6,61 @@ const nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'EXAMPLE@gmail.com',
-        pass:  'YOURPASSWORD'
+        user: 'noreply.microauth@gmail.com',
+        pass:  'EXAMPLE'
     },
     debug: false // include SMTP traffic in the logs
 }, {
     // default message fields
 
     // sender info
-    from: 'Micro-Auth <no-reply@micro-auth.com>',
+    from: 'Micro-Auth <no-reply@microauth.com>',
 });
 
 console.log('SMTP Configured');
 
 // Message object
-let message_default = {
+const message_template = () => {
 
     // Comma separated list of recipients
-    to: 'Daniel Mateus Pires <dmateusp@gmail.com>',
+    // This will be overwritten
+    to: 'Example <example@gmail.com>',
 
     // Subject of the message
-    subject: 'Nodemailer is unicode friendly ✔ #', //
+    subject: 'Confirm email Micro-Auth', //
 
     // plaintext body
-    text: 'Hi',
+    text: 'please confirm email at ',
 
     // HTML body
-    html: '<p>Hi</p>' +
-        '<p>How are you?</p>',
+    html: '<p>please confirm email at</p>',
 
     // Apple Watch specific HTML body
     watchHtml: '<b>Hello</b> to myself',
 
 };
 
-console.log('Sending Mail');
-const sendMail = (message) => transporter.sendMail(message_default, (error, info) => {
-    console.log(message)
-    if (error) {
-        console.log('Error occurred');
-        console.log(error.message);
-        return;
-    }
-    console.log('Message sent successfully!');
-    console.log('Server responded with "%s"', info.response);
-    transporter.close();
-});
+const sendMail = (message) => {
+  msg_base = message_template()
+  msg_base.to = message.email
+  msg_base.text += message.confirmUrl
+  msg_base.html += '<a href="' + message.confirmUrl + '">Confirm your email!</a>'
+
+  transporter.sendEmail(msg_base, (error, info) => {
+      console.log(msg_base)
+
+      if (error) {
+          console.log('Error occurred');
+          console.log(error.message);
+          return;
+      }
+      console.log('Message sent successfully!');
+      console.log('Server responded with "%s"', info.response);
+      transporter.close();
+  });
+}
+
 
 module.exports = {
-  sendMail: sendMail
+  sendEmail: sendEmail
 };

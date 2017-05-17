@@ -1,15 +1,13 @@
 var fs = require('fs')
 var http = require('http')
 var Authentic = require('../')
+const email = require('./send-email-nodemailer.js')
 
 var auth = Authentic({
   db: __dirname + '/../db/',
   publicKey: fs.readFileSync(__dirname + '/rsa-public.pem'),
   privateKey: fs.readFileSync(__dirname + '/rsa-private.pem'),
-  sendEmail: function (email, cb) {
-    console.log(email)
-    setImmediate(cb)
-  }
+  sendEmail: email.sendEmail
 })
 
 var server = http.createServer(function (req, res) {
