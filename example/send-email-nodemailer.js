@@ -21,26 +21,26 @@ console.log('SMTP Configured');
 
 // Message object
 const message_template = () => {
+    return ({
+      // Comma separated list of recipients
+      // This will be overwritten
+      to: 'Example <example@gmail.com>',
 
-    // Comma separated list of recipients
-    // This will be overwritten
-    to: 'Example <example@gmail.com>',
+      // Subject of the message
+      subject: 'Confirm email Micro-Auth', //
 
-    // Subject of the message
-    subject: 'Confirm email Micro-Auth', //
+      // plaintext body
+      text: 'please confirm email at ',
 
-    // plaintext body
-    text: 'please confirm email at ',
+      // HTML body
+      html: '<p>please confirm email at</p>',
 
-    // HTML body
-    html: '<p>please confirm email at</p>',
-
-    // Apple Watch specific HTML body
-    watchHtml: '<b>Hello</b> to myself',
-
+      // Apple Watch specific HTML body
+      watchHtml: '<b>Hello</b> to myself',
+    })
 };
 
-const sendMail = (message) => {
+const sendEmail = (message) => {
   msg_base = message_template()
   msg_base.to = message.email
   msg_base.text += message.confirmUrl
