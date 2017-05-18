@@ -18,7 +18,6 @@ const findOne =
   (key, cb) => {
     return((collection) =>
       collection.findOne({email: key}, function(err, item) {
-        console.log(err)
         const user = item ? item : undefined
         setImmediate(cb, null, user)
       }))
