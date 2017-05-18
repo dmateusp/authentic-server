@@ -20,5 +20,6 @@ var server = http.createServer(function (req, res) {
   }
 })
 
-server.listen(1337)
-console.log('Authentic enabled server listening on port', 1337)
+const port = typeof(process.env.PORT) !== 'undefined' ? process.env.PORT : 1337
+server.listen(port)
+console.log('Authentic enabled server listening on port', port)
