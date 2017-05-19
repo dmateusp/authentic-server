@@ -24,22 +24,22 @@ const findOne =
   }
 
 
-const insertOne =
-  (key, value, cb) => {
-    return (
-      (collection) => {
-        const newUser = utils.merge([{'email': key}, value])
-        collection.insertOne(newUser, function(err, r) {
-          setImmediate(cb, null)
-        })
-      }
-    )
-  }
+  const upsert =
+    (key, value, cb) => {
+      return (
+        (collection) => {
+          const user = utils.merge([{'email': key}, value])
+          collection.updateOne({'email': user.email}, {$set: user}, {upsert: true}, function(err, r) {
+            setImmediate(cb, null)
+          })
+        }
+      )
+    }
 
 
 module.exports = {
   MongoQuery : {
     get: (key, cb) => connect(findOne(key, cb)),
-    put: (key, value, cb) => connect(insertOne(key, value, cb))
+    put: (key, value, cb) => connect(upsert(key, value, cb))
   }
 }
